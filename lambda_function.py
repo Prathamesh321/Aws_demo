@@ -28,7 +28,11 @@ def lambda_handler(event, context):
         aws_access_key_id=aws_access_key_id,
         aws_secret_access_key=aws_secret_access_key
     )
-    bucket='targetetlbucket';
+    
+    if (s3_file_key.endswith('-imdb.csv')==True):
+        bucket='targetbucketimdb';
+    else:
+        bucket='targetetlbucket';
     csv_buffer = StringIO()
     df1.to_csv(csv_buffer,index=False);
     s3_resource.Object(bucket, s3_file_key).put(Body=csv_buffer.getvalue())
