@@ -10,10 +10,12 @@ import io
 from io import StringIO
 def lambda_handler(event, context):
     s3_file_key = event['Records'][0]['s3']['object']['key'];
+    print(s3_file_key)
+    print(event)
     bucket = 'sourceetlbucket';
     s3 = boto3.client('s3', aws_access_key_id='AKIATVIL4LQYAO6DOHQI',  aws_secret_access_key='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')
     obj = s3.get_object(Bucket=bucket, Key=s3_file_key)
-    initial_df = pd.read_csv(io.BytesIO(obj['Body'].read()));
+    df1 = pd.read_csv(io.BytesIO(obj['Body'].read()));
 
     service_name = 's3'
     region_name = 'ap-south-1'
@@ -27,8 +29,6 @@ def lambda_handler(event, context):
         aws_secret_access_key=aws_secret_access_key
     )
     bucket='targetetlbucket';
-    df = initial_df[(initial_df.type == "Movie")];
-    df1 = df.loc[:, ~df.columns.isin(['date_added', 'description', 'duration'])];
     csv_buffer = StringIO()
     df1.to_csv(csv_buffer,index=False);
     s3_resource.Object(bucket, s3_file_key).put(Body=csv_buffer.getvalue())
