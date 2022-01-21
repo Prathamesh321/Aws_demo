@@ -33,6 +33,9 @@ def lambda_handler(event, context):
         bucket='targetbucketimdb';
     else:
         bucket='targetetlbucket';
+    
+    df1 = df1.loc[:, ~df1.columns.isin(['Released', 'Plot', 'Awards','Poster','Ratings','Metascore','imdbID','DVD,BoxOffice',
+                                                    'Production','Website','Response'])];
     csv_buffer = StringIO()
     df1.to_csv(csv_buffer,index=False);
     s3_resource.Object(bucket, s3_file_key).put(Body=csv_buffer.getvalue())
