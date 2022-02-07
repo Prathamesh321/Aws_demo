@@ -34,7 +34,7 @@ def lambda_handler(event, context):
     else:
         bucket='targetetlbucket';
     
-    df1 = df1.loc[:, ~df1.columns.isin(['Released', 'Plot', 'Awards','Poster','Ratings','Metascore','imdbID','DVD,BoxOffice',
+    df1 = df1.loc[:, ~df1.columns.isin(['Released', 'Awards','Poster','Metascore','imdbID',
                                                     'Production','Website','Response'])];
     csv_buffer = StringIO()
     df1.to_csv(csv_buffer,index=False);
