@@ -7,10 +7,12 @@
 import pandas as pd
 import boto3
 import io
+import os
 from io import StringIO
+
 def lambda_handler(event, context):
-    key1=process.env.Access_key
-    key2=process.env.Secret_access_key
+    key1=os.environ['Access_key']
+    key2=os.environ['Secret_access_key']
     s3_file_key = event['Records'][0]['s3']['object']['key'];
     print(s3_file_key)
     print(event)
