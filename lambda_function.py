@@ -33,7 +33,7 @@ def lambda_handler(event, context):
         bucket='targetbucketimdb';
     else:
         bucket='targetetlbucket';
-        df1['type'].replace({"0": "movie", "1": "series"}, inplace=True);
+        df1['type'].replace({0: "movie", 1: "series"}, inplace=True);
         
     
     
