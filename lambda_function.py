@@ -33,6 +33,9 @@ def lambda_handler(event, context):
         bucket='targetbucketimdb';
     else:
         bucket='targetetlbucket';
+        df1['type'].replace({"0": "movie", "1": "series"}, inplace=True);
+        
+    
     
     df1 = df1.loc[:, ~df1.columns.isin(['Released', 'Awards','Poster','Metascore','imdbID',
                                                     'Production','Website','Response'])];
